@@ -38,9 +38,14 @@ public class ProcessUnstructuredData {
         if(itemsFromBucket != null){
             for(String s : itemsFromBucket){
                 InputStream is = datalake.getObject("patientimages", s);
+                //System.out.println(InputStreamDecoder.convert2String(is));
                 udb.insert(InputStreamDecoder.convert2String(is), "patientimages", s);
             }
         }
+        
+        System.out.println("Bucando um valor: ");
+        List<String> res = udb.find("00080018.Value", "1.3.6.1.4.1.9590.100.1.2.422636915513941808621319796570310181528");
+        System.out.println("Valor encontrado:\n\n "+res.get(0));
         
         udb.close();
     }
